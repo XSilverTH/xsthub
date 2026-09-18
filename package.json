@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "typecheck": "vue-tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "validate:content": "bun scripts/validate-content.ts",
+    "generate:schema": "bun scripts/generate-content-schema.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -29,6 +31,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.7.2",
     "vite": "^6.0.7",
-    "vue-tsc": "^2.2.0"
+    "vue-tsc": "^2.2.0",
+    "zod-to-json-schema": "^3.24.6"
   }
 }

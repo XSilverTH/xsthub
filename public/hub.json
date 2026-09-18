@@ -1,0 +1,153 @@
+{
+  "$schema": "./hub.schema.json",
+  "schemaVersion": 1,
+  "site": {
+    "title": "XSilverTH",
+    "subtitle": "Shit doesn’t look as cool when there isn’t a subtitle so just pretend like something important is written here"
+  },
+  "contacts": [
+    {
+      "id": "email",
+      "label": "silver@xsth.ir",
+      "icon": "mail",
+      "action": {
+        "kind": "link",
+        "href": "mailto:silver@xsth.ir"
+      }
+    },
+    {
+      "id": "matrix",
+      "label": "@xsilverth:xsth.ir",
+      "icon": "message-square",
+      "action": {
+        "kind": "link",
+        "href": "https://matrix.to/#/@xsilverth:xsth.ir",
+        "target": "new-tab"
+      }
+    },
+    {
+      "id": "handle",
+      "label": "@xsilverth",
+      "icon": "hash",
+      "action": {
+        "kind": "copy",
+        "value": "@xsilverth"
+      }
+    }
+  ],
+  "cards": [
+    {
+      "id": "matrix",
+      "title": "Matrix Server",
+      "subtitle": "xsth.ir",
+      "icon": "message-square",
+      "layout": "wide",
+      "blocks": [
+        {
+          "id": "instructions",
+          "kind": "instructions",
+          "heading": "Instructions",
+          "items": [
+            "Download an Element client.",
+            "Select “Custom Server” / “Edit”.",
+            "Enter homeserver xsth.ir.",
+            "Log in with your credentials."
+          ]
+        },
+        {
+          "id": "clients-web",
+          "kind": "actions",
+          "heading": "Clients & Web",
+          "actions": [
+            {
+              "id": "element-web",
+              "kind": "link",
+              "label": "Element Web",
+              "href": "https://element.xsth.ir",
+              "target": "new-tab"
+            },
+            {
+              "id": "sable-web",
+              "kind": "link",
+              "label": "Sable Web",
+              "href": "https://sable.xsth.ir",
+              "target": "new-tab"
+            },
+            {
+              "id": "element-desktop",
+              "kind": "link",
+              "label": "Element Desktop",
+              "href": "https://fileserver.xsth.ir/Element/Element%20Setup.exe",
+              "target": "new-tab"
+            },
+            {
+              "id": "element-x",
+              "kind": "link",
+              "label": "Element X",
+              "href": "https://myket.ir/app/io.element.android.x",
+              "target": "new-tab"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "minecraft",
+      "title": "Minecraft",
+      "icon": "server",
+      "description": "Nobody played this shit so i turned it off. If i see players wanting to play i’ll turn it on again",
+      "availability": {
+        "state": "offline"
+      }
+    },
+    {
+      "id": "fileserver",
+      "title": "Fileserver",
+      "icon": "folder-open",
+      "description": "A repository of shit I host.",
+      "actions": [
+        {
+          "id": "browse",
+          "kind": "link",
+          "label": "Browse Directory",
+          "href": "https://fileserver.xsth.ir/",
+          "target": "new-tab"
+        }
+      ]
+    },
+    {
+      "id": "rustdesk",
+      "title": "RustDesk Relay",
+      "icon": "activity",
+      "description": "Self-hosted, ultra-low latency remote desktop server for personal and team assistance.",
+      "blocks": [
+        {
+          "id": "server-details",
+          "kind": "details",
+          "items": [
+            {
+              "id": "id-server",
+              "label": "ID Server",
+              "value": "rustdesk.xsth.ir"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "netradar",
+      "title": "NetRadar",
+      "icon": "radar",
+      "description": "Check if a lot of popular international websites are available really fast.",
+      "actions": [
+        {
+          "id": "access-radar",
+          "kind": "link",
+          "label": "Access Radar",
+          "href": "https://xsth.ir/radar",
+          "target": "new-tab"
+        }
+      ]
+    }
+  ]
+}
