@@ -84,3 +84,17 @@ export function resolveLinkProps(
     isExternal,
   }
 }
+
+export function getCatalogUrl(): string {
+  if (typeof window === 'undefined') return './hub.json'
+  try {
+    const base = document.baseURI || window.location.href
+    const url = new URL(base)
+    if (!url.pathname.endsWith('/') && !url.pathname.split('/').pop()?.includes('.')) {
+      url.pathname += '/'
+    }
+    return new URL('hub.json', url).href
+  } catch {
+    return './hub.json'
+  }
+}

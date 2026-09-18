@@ -1,5 +1,6 @@
 import { ref, type Ref } from 'vue'
 import { safeParseCatalog, type Catalog } from '../lib/catalog-schema'
+import { getCatalogUrl } from '../lib/catalog-url'
 
 export type CatalogLoadStatus = 'loading' | 'success' | 'error'
 
@@ -42,7 +43,8 @@ export function useCatalog(): {
     const deadline = setTimeout(() => controller.abort(), 10_000)
 
     try {
-      const response = await fetch('./hub.json', {
+      const url = getCatalogUrl()
+      const response = await fetch(url, {
         cache: 'no-cache',
         signal: controller.signal,
       })

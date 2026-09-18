@@ -32,15 +32,13 @@ onMounted(() => {
     <AuroraBackground :palette="palette" :is-dark="isDark" />
     <main class="relative mx-auto min-h-screen max-w-[1280px] px-6 py-12 md:py-24">
       <HubHeader
-        v-if="catalog"
-        :title="catalog.site.title"
-        :subtitle="catalog.site.subtitle"
-        :contacts="catalog.contacts"
+        :title="catalog?.site.title ?? 'XSilverTH'"
+        :subtitle="catalog?.site.subtitle ?? (status === 'loading' ? 'Loading services...' : 'Service Hub')"
+        :contacts="catalog?.contacts ?? []"
         :palette="palette"
         :is-dark="isDark"
         :feedback="clipboard"
       />
-
       <CatalogSkeleton v-if="status === 'loading'" />
       <CatalogError v-else-if="status === 'error'" :message="errorMessage" :details="errorDetails" @retry="retry" />
       <CatalogEmpty v-else-if="catalog && catalog.cards.length === 0" />

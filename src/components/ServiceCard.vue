@@ -52,7 +52,7 @@ const accentStyle = computed(() => ({ color: tokens.value.actionFg }))
         </div>
         <div class="min-w-0 flex-1">
           <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <h2 class="text-xl font-medium tracking-tight text-slate-900 dark:text-slate-50">{{ card.title }}</h2>
+            <h2 :class="card.layout === 'wide' ? 'text-2xl font-semibold' : 'text-xl font-medium'" class="tracking-tight text-slate-900 dark:text-slate-50">{{ card.title }}</h2>
             <AvailabilityBadge v-if="card.availability" :availability="card.availability" />
           </div>
           <p v-if="card.subtitle" class="mt-1 break-all font-mono text-xs" :style="accentStyle">{{ card.subtitle }}</p>
@@ -66,8 +66,8 @@ const accentStyle = computed(() => ({ color: tokens.value.actionFg }))
       </div>
     </div>
 
-    <div v-if="card.actions?.length" class="mt-8 flex flex-wrap gap-3 border-t border-black/5 pt-6 dark:border-white/10">
-      <HubAction v-for="action in card.actions" :key="action.id" :action="action" :tokens="tokens" :feedback="feedback" />
+    <div v-if="card.actions?.length" class="mt-8 flex flex-col gap-3 border-t border-black/5 pt-6 sm:flex-row dark:border-white/10">
+      <HubAction v-for="action in card.actions" :key="action.id" :action="action" :tokens="tokens" :feedback="feedback" class="w-full flex-1" />
     </div>
   </article>
 </template>
