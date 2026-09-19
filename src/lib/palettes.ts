@@ -133,25 +133,7 @@ const fuchsiaPalette: PaletteTokens = {
   }),
 }
 
-// 3. Default (Original signature violet/multicolor theme)
-const defaultPalette: PaletteTokens = {
-  id: 'default',
-  name: 'Default',
-  headerDot: { light: '#6d28d9', dark: '#8b5cf6' },
-  aurora: {
-    light: ['#c4b5fd', '#6ee7b7', '#93c5fd'],
-    dark: ['#4c1d95', '#064e3b', '#1e3a8a'],
-  },
-  canvas: { light: '#f8fafc', dark: '#020617' },
-  slots: makeUnifiedSlots({
-    primary: { dark: '#8b5cf6', light: '#6d28d9' },
-    secondary: { dark: '#10b981', light: '#047857' },
-    tertiary: { dark: '#06b6d4', light: '#0e7490' },
-    quaternary: { dark: '#f59e0b', light: '#b45309' },
-  }),
-}
-
-// 4. Amber (Original amber theme)
+// 3. Amber (Original amber theme)
 const amberPalette: PaletteTokens = {
   id: 'amber',
   name: 'Amber',
@@ -169,7 +151,7 @@ const amberPalette: PaletteTokens = {
   }),
 }
 
-// 5. Red (Original red theme)
+// 4. Red (Original red theme)
 const redPalette: PaletteTokens = {
   id: 'red',
   name: 'Red',
@@ -187,7 +169,7 @@ const redPalette: PaletteTokens = {
   }),
 }
 
-// 6. Blue (Original blue theme)
+// 5. Blue (Original blue theme)
 const bluePalette: PaletteTokens = {
   id: 'blue',
   name: 'Blue',
@@ -205,7 +187,7 @@ const bluePalette: PaletteTokens = {
   }),
 }
 
-// 7. Monochrome (Original monochrome theme)
+// 6. Monochrome (Original monochrome theme)
 const monochromePalette: PaletteTokens = {
   id: 'monochrome',
   name: 'Monochrome',
@@ -226,7 +208,6 @@ const monochromePalette: PaletteTokens = {
 export const PALETTES: PaletteTokens[] = [
   emeraldPalette,
   fuchsiaPalette,
-  defaultPalette,
   amberPalette,
   redPalette,
   bluePalette,
