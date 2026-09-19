@@ -54,6 +54,12 @@ function closeFromEscape(event: KeyboardEvent): void {
   nextTick(() => activeElement.value?.focus())
 }
 
+function handleGlobalKeydown(event: KeyboardEvent): void {
+  if (event.key === 'Escape' && expanded.value) {
+    closeFromEscape(event)
+  }
+}
+
 function linkTarget(contact: Contact): '_blank' | undefined {
   if (contact.action.kind !== 'link') return undefined
   if (contact.action.target === 'same-tab') return undefined
@@ -83,9 +89,13 @@ function selectFallback(event: Event): void {
 onMounted(() => {
   detectPointer()
   window.addEventListener('resize', detectPointer, { passive: true })
+  window.addEventListener('keydown', handleGlobalKeydown)
 })
 
-onBeforeUnmount(() => window.removeEventListener('resize', detectPointer))
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', detectPointer)
+  window.removeEventListener('keydown', handleGlobalKeydown)
+})
 </script>
 
 <template>

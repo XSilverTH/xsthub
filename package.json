@@ -9,7 +9,8 @@
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "validate:content": "bun scripts/validate-content.ts",
-    "generate:schema": "bun scripts/generate-content-schema.ts"
+    "generate:schema": "bun scripts/generate-content-schema.ts",
+    "test": "bun test"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
