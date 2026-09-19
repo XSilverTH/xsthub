@@ -129,10 +129,10 @@ onBeforeUnmount(() => {
         class="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/40 px-3.5 py-1.5 font-mono text-xs text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:border-black/20 hover:bg-white/70 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/[0.08]"
         @click="copyContact(contact)"
       >
-        <Check v-if="feedback.hasCopied(contact.id)" :size="13" class="text-emerald-500" aria-hidden="true" />
-        <Copy v-else :size="13" class="opacity-70" aria-hidden="true" />
         <component :is="iconFor(contact)" :size="13" :style="{ color: accent }" aria-hidden="true" />
         <span>{{ feedback.hasCopied(contact.id) ? 'Copied' : contact.label }}</span>
+        <Check v-if="feedback.hasCopied(contact.id)" :size="13" class="text-emerald-500" aria-hidden="true" />
+        <Copy v-else :size="13" class="opacity-70" aria-hidden="true" />
       </button>
     </template>
 
@@ -174,10 +174,10 @@ onBeforeUnmount(() => {
             class="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white/50 px-3 py-1.5 font-mono text-xs text-slate-700 transition hover:border-slate-400 hover:bg-white dark:border-white/10 dark:bg-black/20 dark:text-slate-200 dark:hover:border-white/30"
             @click="copyContact(contact)"
           >
-            <Check v-if="feedback.hasCopied(contact.id)" :size="13" aria-hidden="true" />
-            <Copy v-else :size="13" aria-hidden="true" />
             <component :is="iconFor(contact)" :size="13" aria-hidden="true" />
             <span>{{ feedback.hasCopied(contact.id) ? 'Copied' : contact.label }}</span>
+            <Check v-if="feedback.hasCopied(contact.id)" :size="13" aria-hidden="true" />
+            <Copy v-else :size="13" aria-hidden="true" />
           </button>
         </template>
       </div>
