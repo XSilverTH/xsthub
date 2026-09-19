@@ -49,7 +49,7 @@ const accentStyle = computed(() => ({ color: tokens.value.textFg }))
   >
     <div class="relative z-10 flex flex-1 flex-col justify-between">
       <div>
-        <div class="flex items-start gap-4">
+        <div class="flex flex-col items-start gap-4">
           <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl" :style="iconStyle">
             <component :is="icon" :size="22" stroke-width="1.8" aria-hidden="true" />
           </div>
