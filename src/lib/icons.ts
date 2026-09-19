@@ -6,8 +6,10 @@ import {
   Hash,
   Mail,
   MessageSquare,
+  Monitor,
   Radio,
   Server,
+  Smartphone,
   Terminal,
 } from 'lucide-vue-next'
 
@@ -21,6 +23,8 @@ export const iconNames = [
   'activity',
   'radar',
   'code',
+  'monitor',
+  'smartphone',
 ] as const
 
 export type IconName = (typeof iconNames)[number]
@@ -35,4 +39,6 @@ export const iconRegistry: Record<IconName, Component> = {
   activity: Activity,
   radar: Radio,
   code: Code,
+  monitor: Monitor,
+  smartphone: Smartphone,
 }

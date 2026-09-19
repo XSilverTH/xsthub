@@ -99,23 +99,43 @@ function customTokens(color: CardColor, mode: Mode): PaletteSlotTokens | null {
   const accent = parseHex(value)
   if (!accent) return null
 
-  const cardBackground = mix(accent, mode === 'light' ? WHITE : { r: 0, g: 0, b: 0 }, mode === 'light' ? 0.9 : 0.72)
-  const iconBackground = mix(accent, mode === 'light' ? WHITE : { r: 0, g: 0, b: 0 }, mode === 'light' ? 0.72 : 0.48)
-  const actionBackground = mix(accent, mode === 'light' ? WHITE : { r: 0, g: 0, b: 0 }, mode === 'light' ? 0.78 : 0.58)
-  const cardPair = readablePair(cardBackground)
-  const iconPair = readablePair(iconBackground)
-  const actionPair = readablePair(actionBackground)
-  const border = readableAccent(accent, cardBackground)
+  const hex = value
+  if (mode === 'dark') {
+    return {
+      accent: hex,
+      iconBg: `${hex}18`,
+      iconBorder: `${hex}38`,
+      iconFg: hex,
+      cardBorder: 'rgba(255, 255, 255, 0.08)',
+      cardHoverBorder: `${hex}4d`,
+      actionBg: `${hex}12`,
+      actionBorder: `${hex}3d`,
+      actionFg: hex,
+      actionHoverBg: `${hex}24`,
+      tagBg: `${hex}22`,
+      tagBorder: `${hex}4d`,
+      tagFg: hex,
+      textFg: hex,
+      subtleBg: '#0b1329',
+    }
+  }
 
   return {
-    iconBg: iconPair.background,
-    iconFg: iconPair.foreground,
-    border,
-    actionBg: actionPair.background,
-    actionBorder: border,
-    actionFg: actionPair.foreground,
-    textFg: cardPair.foreground,
-    subtleBg: cardPair.background,
+    accent: hex,
+    iconBg: `${hex}15`,
+    iconBorder: `${hex}35`,
+    iconFg: hex,
+    cardBorder: 'rgba(0, 0, 0, 0.08)',
+    cardHoverBorder: `${hex}50`,
+    actionBg: `${hex}0f`,
+    actionBorder: `${hex}35`,
+    actionFg: hex,
+    actionHoverBg: `${hex}1f`,
+    tagBg: `${hex}15`,
+    tagBorder: `${hex}3d`,
+    tagFg: hex,
+    textFg: hex,
+    subtleBg: '#ffffff',
   }
 }
 

@@ -17,19 +17,19 @@ let mediaQuery: MediaQueryList | null = null
 const colors = computed(() => props.palette.aurora[props.isDark ? 'dark' : 'light'])
 const layers = computed(() => [
   {
-    class: 'left-[-22vw] top-[-28vw] h-[70vw] w-[70vw] max-h-[900px] max-w-[900px]',
+    class: 'left-[-10vw] top-[-15vw] h-[65vw] w-[65vw] min-h-[500px] min-w-[500px]',
     color: colors.value[0],
     depth: 0.55,
   },
   {
-    class: 'right-[-25vw] top-[10vh] h-[60vw] w-[60vw] max-h-[780px] max-w-[780px]',
+    class: 'right-[-10vw] top-[-8vw] h-[55vw] w-[55vw] min-h-[420px] min-w-[420px]',
     color: colors.value[1],
-    depth: 0.8,
+    depth: 0.75,
   },
   {
-    class: 'bottom-[-24vw] left-[16vw] h-[50vw] w-[80vw] max-h-[640px] max-w-[1200px]',
+    class: 'bottom-[-15vw] left-[20vw] h-[45vw] w-[60vw] min-h-[350px] min-w-[500px]',
     color: colors.value[2],
-    depth: 0.38,
+    depth: 0.35,
   },
 ])
 
@@ -72,10 +72,10 @@ function handleMotionChange(event: MediaQueryListEvent): void {
 }
 
 function layerStyle(layer: { color: string; depth: number }): Record<string, string> {
-  const x = offset.value.x * layer.depth * 18
-  const y = offset.value.y * layer.depth * 14
+  const x = offset.value.x * layer.depth * 24
+  const y = offset.value.y * layer.depth * 18
   return {
-    background: `radial-gradient(circle at center, ${layer.color} 0%, ${layer.color}cc 28%, transparent 70%)`,
+    background: `radial-gradient(circle at center, ${layer.color} 0%, ${layer.color}b3 35%, transparent 70%)`,
     transform: `translate3d(${x}px, ${y}px, 0)`,
   }
 }
@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
     <div
       v-for="layer in layers"
       :key="layer.color"
-      class="absolute rounded-full opacity-60 blur-[100px] transition-colors duration-700 dark:opacity-55"
+      class="absolute rounded-full opacity-35 blur-[120px] transition-colors duration-700 dark:opacity-30"
       :class="layer.class"
       :style="layerStyle(layer)"
     />

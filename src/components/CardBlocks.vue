@@ -36,14 +36,22 @@ function textParts(text: string): Array<{ value: string; highlighted: boolean }>
           <span class="shrink-0 font-mono text-xs text-slate-400 dark:text-slate-500">{{ index + 1 }}.</span>
           <span>
             <template v-for="(part, partIndex) in textParts(item)" :key="`${block.id}-${index}-${partIndex}`">
-              <span v-if="part.highlighted" class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-xs font-medium dark:bg-white/10" :style="{ color: tokens.textFg }">{{ part.value }}</span>
+              <span
+                v-if="part.highlighted"
+                class="rounded border px-2 py-0.5 font-mono text-xs font-medium"
+                :style="{
+                  backgroundColor: tokens.tagBg,
+                  borderColor: tokens.tagBorder,
+                  color: tokens.tagFg,
+                }"
+              >{{ part.value }}</span>
               <span v-else>{{ part.value }}</span>
             </template>
           </span>
         </li>
       </ol>
 
-      <div v-else-if="block.kind === 'details'" class="space-y-2 rounded-xl border border-black/5 bg-slate-100/50 p-3.5 dark:border-white/5 dark:bg-black/20">
+      <div v-else-if="block.kind === 'details'" class="space-y-2 rounded-xl border border-black/5 bg-slate-100/50 p-3.5 dark:border-white/[0.08] dark:bg-black/35">
         <div v-for="item in block.items" :key="item.id" class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm">
           <span class="font-mono text-xs text-slate-500 dark:text-slate-400">{{ item.label }}:</span>
           <span class="break-all font-mono text-xs font-medium" :style="{ color: tokens.textFg }">{{ item.value }}</span>

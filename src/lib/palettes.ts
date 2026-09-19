@@ -1,10 +1,17 @@
 export interface PaletteSlotTokens {
+  accent: string
   iconBg: string
+  iconBorder: string
   iconFg: string
-  border: string
+  cardBorder: string
+  cardHoverBorder: string
   actionBg: string
   actionBorder: string
   actionFg: string
+  actionHoverBg: string
+  tagBg: string
+  tagBorder: string
+  tagFg: string
   textFg: string
   subtleBg: string
 }
@@ -22,148 +29,184 @@ export interface PaletteTokens {
 }
 
 type Slot = keyof PaletteTokens['slots']
-const SLOTS: Slot[] = ['primary', 'secondary', 'tertiary', 'quaternary']
 
-const lightText = '#172033'
-const darkText = '#f8fafc'
-
-function slot(
-  iconBg: string,
-  actionBg: string,
-  accent: string,
+function makeSlotTokens(
+  accentHex: string,
+  lightHex: string,
   mode: 'light' | 'dark',
 ): PaletteSlotTokens {
-  const textFg = mode === 'light' ? lightText : darkText
-  const iconFg = mode === 'light' ? lightText : darkText
+  if (mode === 'dark') {
+    return {
+      accent: accentHex,
+      iconBg: `${accentHex}18`,
+      iconBorder: `${accentHex}38`,
+      iconFg: accentHex,
+      cardBorder: 'rgba(255, 255, 255, 0.08)',
+      cardHoverBorder: `${accentHex}4d`,
+      actionBg: `${accentHex}12`,
+      actionBorder: `${accentHex}3d`,
+      actionFg: accentHex,
+      actionHoverBg: `${accentHex}24`,
+      tagBg: `${accentHex}22`,
+      tagBorder: `${accentHex}4d`,
+      tagFg: accentHex,
+      textFg: accentHex,
+      subtleBg: '#0b1329',
+    }
+  }
+
   return {
-    iconBg,
-    iconFg,
-    border: accent,
-    actionBg,
-    actionBorder: accent,
-    actionFg: iconFg,
-    textFg,
-    subtleBg: mode === 'light' ? '#ffffff' : '#111827',
+    accent: lightHex,
+    iconBg: `${lightHex}15`,
+    iconBorder: `${lightHex}35`,
+    iconFg: lightHex,
+    cardBorder: 'rgba(0, 0, 0, 0.08)',
+    cardHoverBorder: `${lightHex}50`,
+    actionBg: `${lightHex}0f`,
+    actionBorder: `${lightHex}35`,
+    actionFg: lightHex,
+    actionHoverBg: `${lightHex}1f`,
+    tagBg: `${lightHex}15`,
+    tagBorder: `${lightHex}3d`,
+    tagFg: lightHex,
+    textFg: lightHex,
+    subtleBg: '#ffffff',
   }
 }
 
-const defaultPalette: PaletteTokens = {
-  id: 'default',
-  name: 'Spectrum',
-  headerDot: { light: '#7c3aed', dark: '#a78bfa' },
+function makeUnifiedSlots(
+  accentDark: string,
+  accentLight: string,
+): Record<Slot, { light: PaletteSlotTokens; dark: PaletteSlotTokens }> {
+  const slotTokens = {
+    light: makeSlotTokens(accentDark, accentLight, 'light'),
+    dark: makeSlotTokens(accentDark, accentLight, 'dark'),
+  }
+  return {
+    primary: slotTokens,
+    secondary: slotTokens,
+    tertiary: slotTokens,
+    quaternary: slotTokens,
+  }
+}
+
+// 1. Emerald (Exact match to original screenshot from Image #2)
+const emeraldPalette: PaletteTokens = {
+  id: 'emerald',
+  name: 'Emerald',
+  headerDot: { light: '#059669', dark: '#10b981' },
   aurora: {
-    light: ['#ddd6fe', '#cffafe', '#fef3c7'],
-    dark: ['#4c1d95', '#164e63', '#78350f'],
+    light: ['#6ee7b7', '#a7f3d0', '#5eead4'],
+    dark: ['#10b981', '#14b8a6', '#059669'],
+  },
+  canvas: { light: '#f8fafc', dark: '#020617' },
+  slots: makeUnifiedSlots('#34d399', '#059669'),
+}
+
+// 2. Violet (Exact match to desktop-dark-full reference)
+const violetPalette: PaletteTokens = {
+  id: 'violet',
+  name: 'Violet',
+  headerDot: { light: '#7c3aed', dark: '#a855f7' },
+  aurora: {
+    light: ['#ddd6fe', '#c4b5fd', '#e0e7ff'],
+    dark: ['#8b5cf6', '#6366f1', '#a855f7'],
+  },
+  canvas: { light: '#f8fafc', dark: '#020617' },
+  slots: makeUnifiedSlots('#c084fc', '#7c3aed'),
+}
+
+// 3. Fuchsia (Observed runtime scout palette)
+const fuchsiaPalette: PaletteTokens = {
+  id: 'fuchsia',
+  name: 'Fuchsia',
+  headerDot: { light: '#c026d3', dark: '#e879f9' },
+  aurora: {
+    light: ['#f5d0fe', '#fbcfe8', '#e9d5ff'],
+    dark: ['#d946ef', '#ec4899', '#a855f7'],
+  },
+  canvas: { light: '#f8fafc', dark: '#020617' },
+  slots: makeUnifiedSlots('#f472b6', '#c026d3'),
+}
+
+// 4. Cyan (Cool neon teal/cyan)
+const cyanPalette: PaletteTokens = {
+  id: 'cyan',
+  name: 'Cyan',
+  headerDot: { light: '#0891b2', dark: '#22d3ee' },
+  aurora: {
+    light: ['#a5f3fc', '#bae6fd', '#99f6e4'],
+    dark: ['#06b6d4', '#0ea5e9', '#14b8a6'],
+  },
+  canvas: { light: '#f8fafc', dark: '#020617' },
+  slots: makeUnifiedSlots('#22d3ee', '#0891b2'),
+}
+
+// 5. Amber (Warm golden orange)
+const amberPalette: PaletteTokens = {
+  id: 'amber',
+  name: 'Amber',
+  headerDot: { light: '#d97706', dark: '#fbbf24' },
+  aurora: {
+    light: ['#fde68a', '#fed7aa', '#fef08a'],
+    dark: ['#f59e0b', '#d97706', '#ea580c'],
+  },
+  canvas: { light: '#f8fafc', dark: '#020617' },
+  slots: makeUnifiedSlots('#fbbf24', '#d97706'),
+}
+
+// 6. Rose (Vibrant crimson rose)
+const rosePalette: PaletteTokens = {
+  id: 'rose',
+  name: 'Rose',
+  headerDot: { light: '#e11d48', dark: '#fb7185' },
+  aurora: {
+    light: ['#fecdd3', '#fda4af', '#fce7f3'],
+    dark: ['#f43f5e', '#e11d48', '#be123c'],
+  },
+  canvas: { light: '#f8fafc', dark: '#020617' },
+  slots: makeUnifiedSlots('#fb7185', '#e11d48'),
+}
+
+// 7. Spectrum (Multicolor bento with distinct slot colors)
+const spectrumPalette: PaletteTokens = {
+  id: 'spectrum',
+  name: 'Spectrum',
+  headerDot: { light: '#7c3aed', dark: '#a855f7' },
+  aurora: {
+    light: ['#ddd6fe', '#cffafe', '#d1fae5'],
+    dark: ['#8b5cf6', '#06b6d4', '#10b981'],
   },
   canvas: { light: '#f8fafc', dark: '#020617' },
   slots: {
     primary: {
-      light: slot('#ede9fe', '#f5f3ff', '#6d28d9', 'light'),
-      dark: slot('#312e81', '#1e1b4b', '#a78bfa', 'dark'),
+      light: makeSlotTokens('#c084fc', '#7c3aed', 'light'),
+      dark: makeSlotTokens('#c084fc', '#7c3aed', 'dark'),
     },
     secondary: {
-      light: slot('#cffafe', '#ecfeff', '#0e7490', 'light'),
-      dark: slot('#164e63', '#083344', '#67e8f9', 'dark'),
+      light: makeSlotTokens('#22d3ee', '#0891b2', 'light'),
+      dark: makeSlotTokens('#22d3ee', '#0891b2', 'dark'),
     },
     tertiary: {
-      light: slot('#fef3c7', '#fffbeb', '#b45309', 'light'),
-      dark: slot('#78350f', '#451a03', '#fbbf24', 'dark'),
+      light: makeSlotTokens('#fbbf24', '#d97706', 'light'),
+      dark: makeSlotTokens('#fbbf24', '#d97706', 'dark'),
     },
     quaternary: {
-      light: slot('#d1fae5', '#ecfdf5', '#047857', 'light'),
-      dark: slot('#064e3b', '#022c22', '#6ee7b7', 'dark'),
+      light: makeSlotTokens('#34d399', '#059669', 'light'),
+      dark: makeSlotTokens('#34d399', '#059669', 'dark'),
     },
   },
 }
 
-const auroraPalette: PaletteTokens = {
-  id: 'aurora',
-  name: 'Aurora',
-  headerDot: { light: '#0891b2', dark: '#67e8f9' },
-  aurora: {
-    light: ['#cffafe', '#dbeafe', '#ede9fe'],
-    dark: ['#164e63', '#1e3a8a', '#4c1d95'],
-  },
-  canvas: { light: '#f7fbff', dark: '#07111f' },
-  slots: {
-    primary: {
-      light: slot('#dbeafe', '#eff6ff', '#1d4ed8', 'light'),
-      dark: slot('#1e3a8a', '#172554', '#93c5fd', 'dark'),
-    },
-    secondary: {
-      light: slot('#cffafe', '#ecfeff', '#0e7490', 'light'),
-      dark: slot('#164e63', '#083344', '#67e8f9', 'dark'),
-    },
-    tertiary: {
-      light: slot('#e0e7ff', '#eef2ff', '#4338ca', 'light'),
-      dark: slot('#312e81', '#1e1b4b', '#a5b4fc', 'dark'),
-    },
-    quaternary: {
-      light: slot('#ccfbf1', '#f0fdfa', '#0f766e', 'light'),
-      dark: slot('#134e4a', '#042f2e', '#5eead4', 'dark'),
-    },
-  },
-}
-
-const cyberPalette: PaletteTokens = {
-  id: 'cyber',
-  name: 'Cyber',
-  headerDot: { light: '#db2777', dark: '#f472b6' },
-  aurora: {
-    light: ['#fce7f3', '#cffafe', '#ede9fe'],
-    dark: ['#831843', '#164e63', '#4c1d95'],
-  },
-  canvas: { light: '#fffafe', dark: '#090b1a' },
-  slots: {
-    primary: {
-      light: slot('#fce7f3', '#fdf2f8', '#be185d', 'light'),
-      dark: slot('#831843', '#500724', '#f9a8d4', 'dark'),
-    },
-    secondary: {
-      light: slot('#cffafe', '#ecfeff', '#0e7490', 'light'),
-      dark: slot('#164e63', '#083344', '#67e8f9', 'dark'),
-    },
-    tertiary: {
-      light: slot('#ede9fe', '#f5f3ff', '#6d28d9', 'light'),
-      dark: slot('#4c1d95', '#2e1065', '#c4b5fd', 'dark'),
-    },
-    quaternary: {
-      light: slot('#ecfccb', '#f7fee7', '#4d7c0f', 'light'),
-      dark: slot('#365314', '#1a2e05', '#bef264', 'dark'),
-    },
-  },
-}
-
-const sunsetPalette: PaletteTokens = {
-  id: 'sunset',
-  name: 'Sunset',
-  headerDot: { light: '#c2410c', dark: '#fdba74' },
-  aurora: {
-    light: ['#ffedd5', '#fce7f3', '#fef3c7'],
-    dark: ['#7c2d12', '#831843', '#78350f'],
-  },
-  canvas: { light: '#fffaf5', dark: '#160b0a' },
-  slots: {
-    primary: {
-      light: slot('#ffedd5', '#fff7ed', '#c2410c', 'light'),
-      dark: slot('#7c2d12', '#431407', '#fdba74', 'dark'),
-    },
-    secondary: {
-      light: slot('#fce7f3', '#fdf2f8', '#be185d', 'light'),
-      dark: slot('#831843', '#500724', '#f9a8d4', 'dark'),
-    },
-    tertiary: {
-      light: slot('#fef3c7', '#fffbeb', '#b45309', 'light'),
-      dark: slot('#78350f', '#451a03', '#fbbf24', 'dark'),
-    },
-    quaternary: {
-      light: slot('#fee2e2', '#fef2f2', '#b91c1c', 'light'),
-      dark: slot('#7f1d1d', '#450a0a', '#fca5a5', 'dark'),
-    },
-  },
-}
-
-export const PALETTES: PaletteTokens[] = [defaultPalette, auroraPalette, cyberPalette, sunsetPalette]
+export const PALETTES: PaletteTokens[] = [
+  emeraldPalette,
+  violetPalette,
+  fuchsiaPalette,
+  cyanPalette,
+  amberPalette,
+  rosePalette,
+  spectrumPalette,
+]
 
 let activePalette: PaletteTokens | undefined
 
@@ -186,9 +229,8 @@ export function getActivePalette(): PaletteTokens {
   const requestedPalette = requested ? PALETTES.find((palette) => palette.id === requested) : undefined
   if (requestedPalette) {
     activePalette = requestedPalette
-  } else if (import.meta.env.DEV) {
-    activePalette = PALETTES[0]
   } else {
+    // Uniform random palette per full page load, in both development and production
     activePalette = PALETTES[Math.floor(Math.random() * PALETTES.length)] ?? PALETTES[0]
   }
 

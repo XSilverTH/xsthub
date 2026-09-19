@@ -78,14 +78,16 @@
               "kind": "link",
               "label": "Element Desktop",
               "href": "https://fileserver.xsth.ir/Element/Element%20Setup.exe",
-              "target": "new-tab"
+              "target": "new-tab",
+              "icon": "monitor"
             },
             {
               "id": "element-x",
               "kind": "link",
               "label": "Element X",
               "href": "https://myket.ir/app/io.element.android.x",
-              "target": "new-tab"
+              "target": "new-tab",
+              "icon": "smartphone"
             }
           ]
         }

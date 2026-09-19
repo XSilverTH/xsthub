@@ -54,6 +54,7 @@ export const LinkActionSchema = z
     label: z.string().min(1),
     href: UrlSchema,
     target: z.enum(['same-tab', 'new-tab']).optional(),
+    icon: IconNameSchema.optional(),
   })
   .strict()
 
@@ -64,6 +65,7 @@ export const CopyActionSchema = z
     label: z.string().min(1),
     value: z.string().min(1),
     successLabel: z.string().min(1).optional(),
+    icon: IconNameSchema.optional(),
   })
   .strict()
 

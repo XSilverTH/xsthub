@@ -7,6 +7,7 @@ import { iconRegistry } from '../lib/icons'
 
 const props = defineProps<{
   contacts: Contact[]
+  accent?: string
   feedback?: ClipboardFeedback
 }>()
 
@@ -101,7 +102,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="root"
-    class="relative flex flex-wrap items-center justify-end gap-2"
+    class="relative flex flex-col items-end gap-2.5 sm:items-end"
     @pointerenter="handlePointerEnter"
     @pointerleave="handlePointerLeave"
     @focusin="rememberFocus"
@@ -115,22 +116,22 @@ onBeforeUnmount(() => {
         :target="linkTarget(contact)"
         :rel="linkRel(contact)"
         data-contact-visible="true"
-        class="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white/35 px-3 py-1.5 font-mono text-xs text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white/70 dark:border-white/10 dark:bg-black/20 dark:text-slate-200 dark:hover:border-white/30 dark:hover:bg-black/35"
+        class="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/40 px-3.5 py-1.5 font-mono text-xs text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:border-black/20 hover:bg-white/70 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/[0.08]"
       >
-        <component :is="iconFor(contact)" :size="13" aria-hidden="true" />
+        <component :is="iconFor(contact)" :size="13" :style="{ color: accent }" aria-hidden="true" />
         <span>{{ contact.label }}</span>
-        <ExternalLink v-if="isExternal(contact)" :size="11" aria-hidden="true" />
+        <ExternalLink v-if="isExternal(contact)" :size="11" class="opacity-60" aria-hidden="true" />
       </a>
       <button
         v-else
         type="button"
         data-contact-visible="true"
-        class="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white/35 px-3 py-1.5 font-mono text-xs text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white/70 dark:border-white/10 dark:bg-black/20 dark:text-slate-200 dark:hover:border-white/30 dark:hover:bg-black/35"
+        class="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/40 px-3.5 py-1.5 font-mono text-xs text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:border-black/20 hover:bg-white/70 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/[0.08]"
         @click="copyContact(contact)"
       >
-        <Check v-if="feedback.hasCopied(contact.id)" :size="13" aria-hidden="true" />
-        <Copy v-else :size="13" aria-hidden="true" />
-        <component :is="iconFor(contact)" :size="13" aria-hidden="true" />
+        <Check v-if="feedback.hasCopied(contact.id)" :size="13" class="text-emerald-500" aria-hidden="true" />
+        <Copy v-else :size="13" class="opacity-70" aria-hidden="true" />
+        <component :is="iconFor(contact)" :size="13" :style="{ color: accent }" aria-hidden="true" />
         <span>{{ feedback.hasCopied(contact.id) ? 'Copied' : contact.label }}</span>
       </button>
     </template>

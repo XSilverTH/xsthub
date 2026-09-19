@@ -19,26 +19,30 @@ const headerDot = computed(() => props.palette.headerDot[props.isDark ? 'dark' :
 </script>
 
 <template>
-  <header class="mb-12 flex flex-col gap-7 md:mb-16 md:flex-row md:items-end md:justify-between md:gap-10">
+  <header class="relative mb-12 flex flex-col gap-7 md:mb-16 md:flex-row md:items-end md:justify-between md:gap-10">
     <div class="min-w-0 flex-1">
       <div class="flex items-start justify-between gap-5 md:block">
-        <h1 class="font-sans text-[3rem] font-bold leading-[0.95] tracking-[-0.07em] text-slate-950 dark:text-slate-50 md:text-[4.5rem]">
-          {{ title }}<span class="ml-1" :style="{ color: headerDot }" aria-hidden="true">.</span>
+        <h1 class="font-sans text-[3.25rem] font-bold leading-[0.92] tracking-[-0.06em] text-slate-950 dark:text-white md:text-[4.75rem]">
+          {{ title }}<span class="ml-0.5" :style="{ color: headerDot }" aria-hidden="true">.</span>
         </h1>
         <div class="shrink-0 md:hidden">
           <ThemeControl />
         </div>
       </div>
-      <p class="mt-4 max-w-xl text-lg font-light leading-relaxed text-slate-600 dark:text-slate-300 md:mt-5 md:text-xl">
+      <p class="mt-4 max-w-xl text-base font-light leading-relaxed text-slate-600 dark:text-slate-400 md:mt-5 md:text-lg">
         {{ subtitle }}
       </p>
     </div>
 
-    <div class="flex shrink-0 items-center justify-between gap-3 md:max-w-[52%] md:justify-end">
-      <ContactList :contacts="contacts" :feedback="feedback" />
-      <div class="hidden md:block">
+    <div class="flex shrink-0 flex-col items-end gap-4">
+      <div class="hidden md:block absolute -top-6 right-0 md:-top-10">
         <ThemeControl />
       </div>
+      <ContactList
+        :contacts="contacts"
+        :accent="palette.slots.primary[isDark ? 'dark' : 'light'].iconFg"
+        :feedback="feedback"
+      />
     </div>
   </header>
 </template>

@@ -3,6 +3,7 @@ import { computed, nextTick } from 'vue'
 import { Check, Copy, ExternalLink } from 'lucide-vue-next'
 import { useClipboardFeedback, type ClipboardFeedback } from '../composables/useClipboardFeedback'
 import type { Action } from '../lib/catalog-schema'
+import { iconRegistry } from '../lib/icons'
 import type { PaletteSlotTokens } from '../lib/palettes'
 
 const props = defineProps<{
@@ -50,20 +51,22 @@ function selectFallback(event: Event): void {
     :href="action.href"
     :target="linkTarget"
     :rel="linkRel"
-    class="inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-5 text-center text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105 focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+    class="inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-4 text-center text-sm font-medium transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     :style="actionStyle"
   >
+    <component :is="iconRegistry[action.icon]" v-if="action.icon && iconRegistry[action.icon]" :size="16" aria-hidden="true" />
     <span>{{ action.label }}</span>
-    <ExternalLink v-if="isExternal" :size="15" aria-hidden="true" />
+    <ExternalLink v-if="isExternal" :size="14" class="opacity-80" aria-hidden="true" />
   </a>
   <button
     v-else
     type="button"
-    class="inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-5 text-center text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105 focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+    class="inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-4 text-center text-sm font-medium transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     :style="actionStyle"
     @click="handleCopy"
   >
     <Check v-if="feedback.hasCopied(action.id)" :size="15" aria-hidden="true" />
+    <component :is="iconRegistry[action.icon]" v-else-if="action.icon && iconRegistry[action.icon]" :size="16" aria-hidden="true" />
     <Copy v-else :size="15" aria-hidden="true" />
     <span>{{ feedback.hasCopied(action.id) ? (action.successLabel || 'Copied!') : action.label }}</span>
     <span class="sr-only" aria-live="polite">{{ feedback.hasCopied(action.id) ? (action.successLabel || 'Copied!') : '' }}</span>

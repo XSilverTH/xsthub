@@ -54,7 +54,9 @@
                   "folder-open",
                   "activity",
                   "radar",
-                  "code"
+                  "code",
+                  "monitor",
+                  "smartphone"
                 ]
               },
               "action": {
@@ -147,7 +149,9 @@
                   "folder-open",
                   "activity",
                   "radar",
-                  "code"
+                  "code",
+                  "monitor",
+                  "smartphone"
                 ]
               },
               "layout": {
@@ -421,6 +425,22 @@
                                       "same-tab",
                                       "new-tab"
                                     ]
+                                  },
+                                  "icon": {
+                                    "type": "string",
+                                    "enum": [
+                                      "mail",
+                                      "hash",
+                                      "terminal",
+                                      "message-square",
+                                      "server",
+                                      "folder-open",
+                                      "activity",
+                                      "radar",
+                                      "code",
+                                      "monitor",
+                                      "smartphone"
+                                    ]
                                   }
                                 },
                                 "required": [
@@ -453,6 +473,22 @@
                                   "successLabel": {
                                     "type": "string",
                                     "minLength": 1
+                                  },
+                                  "icon": {
+                                    "type": "string",
+                                    "enum": [
+                                      "mail",
+                                      "hash",
+                                      "terminal",
+                                      "message-square",
+                                      "server",
+                                      "folder-open",
+                                      "activity",
+                                      "radar",
+                                      "code",
+                                      "monitor",
+                                      "smartphone"
+                                    ]
                                   }
                                 },
                                 "required": [
@@ -507,6 +543,22 @@
                             "same-tab",
                             "new-tab"
                           ]
+                        },
+                        "icon": {
+                          "type": "string",
+                          "enum": [
+                            "mail",
+                            "hash",
+                            "terminal",
+                            "message-square",
+                            "server",
+                            "folder-open",
+                            "activity",
+                            "radar",
+                            "code",
+                            "monitor",
+                            "smartphone"
+                          ]
                         }
                       },
                       "required": [
@@ -539,6 +591,22 @@
                         "successLabel": {
                           "type": "string",
                           "minLength": 1
+                        },
+                        "icon": {
+                          "type": "string",
+                          "enum": [
+                            "mail",
+                            "hash",
+                            "terminal",
+                            "message-square",
+                            "server",
+                            "folder-open",
+                            "activity",
+                            "radar",
+                            "code",
+                            "monitor",
+                            "smartphone"
+                          ]
                         }
                       },
                       "required": [
