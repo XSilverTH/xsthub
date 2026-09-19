@@ -115,20 +115,59 @@
   }
 }
 
+.app-shell {
+  transition: background-color 600ms ease;
+}
+
+/* Keep theme color changes smooth without taking ownership of transform/hover motion. */
+.app-shell :where(
+  .glass,
+  [data-card-id],
+  [data-card-id] *,
+  h1,
+  h3,
+  h2,
+  p,
+  span,
+  svg,
+  button:not([data-contact-visible]):not(.hub-action),
+  a:not([data-contact-visible]):not(.hub-action)
+) {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 600ms;
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell,
+  .app-shell :where(
+    .glass,
+    [data-card-id],
+    [data-card-id] *,
+    h1,
+    h2,
+    h3,
+    p,
+    span,
+    svg,
+    button:not([data-contact-visible]):not(.hub-action),
+    a:not([data-contact-visible]):not(.hub-action)
+  ) {
+    transition: none !important;
+  }
+}
+
 @layer utilities {
   .glass {
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    /* Let the page's ambient field tint each surface instead of relighting cards. */
+    background-color: rgba(0, 0, 0, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   html:not(.dark) .glass {
     background-color: rgba(255, 255, 255, 0.45);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    border-color: rgba(15, 23, 42, 0.065);
   }
 }

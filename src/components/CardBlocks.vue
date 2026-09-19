@@ -38,10 +38,9 @@ function textParts(text: string): Array<{ value: string; highlighted: boolean }>
             <template v-for="(part, partIndex) in textParts(item)" :key="`${block.id}-${index}-${partIndex}`">
               <span
                 v-if="part.highlighted"
-                class="rounded border px-2 py-0.5 font-mono text-xs font-medium"
+                class="rounded px-2 py-0.5 font-mono text-xs font-medium"
                 :style="{
                   backgroundColor: tokens.tagBg,
-                  borderColor: tokens.tagBorder,
                   color: tokens.tagFg,
                 }"
               >{{ part.value }}</span>

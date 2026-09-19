@@ -28,7 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative min-h-screen overflow-x-clip" :style="{ backgroundColor: palette.canvas[isDark ? 'dark' : 'light'] }">
+  <div class="app-shell relative min-h-screen overflow-x-clip" :style="{ backgroundColor: palette.canvas[isDark ? 'dark' : 'light'] }">
     <AuroraBackground :palette="palette" :is-dark="isDark" />
     <main class="relative mx-auto min-h-screen max-w-[1280px] px-6 py-12 md:py-24">
       <HubHeader

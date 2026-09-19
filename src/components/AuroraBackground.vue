@@ -37,8 +37,8 @@ function scheduleFrame(): void {
 
 function handlePointerMove(event: MouseEvent): void {
   mouse.value = {
-    x: event.clientX,
-    y: event.clientY,
+    x: event.clientX - window.innerWidth / 2,
+    y: event.clientY - window.innerHeight / 2,
   }
   scheduleFrame()
 }
@@ -57,24 +57,24 @@ function handleMotionChange(event: MediaQueryListEvent): void {
 }
 
 const layer1Style = computed(() => ({
-  backgroundColor: colors.value[0],
+  '--aurora-color': colors.value[0],
   transform: reducedMotion.value
     ? 'none'
-    : `translate3d(${offset.value.x * -0.05}px, ${offset.value.y * -0.05}px, 0)`,
+    : `translate3d(${offset.value.x * -0.3}px, ${offset.value.y * -0.3}px, 0)`,
 }))
 
 const layer2Style = computed(() => ({
-  backgroundColor: colors.value[1],
+  '--aurora-color': colors.value[1],
   transform: reducedMotion.value
     ? 'none'
-    : `translate3d(${offset.value.x * 0.05}px, ${offset.value.y * 0.05}px, 0)`,
+    : `translate3d(${offset.value.x * 0.3}px, ${offset.value.y * 0.3}px, 0)`,
 }))
 
 const layer3Style = computed(() => ({
-  backgroundColor: colors.value[2],
+  '--aurora-color': colors.value[2],
   transform: reducedMotion.value
     ? 'none'
-    : `translate3d(${offset.value.x * 0.02}px, ${offset.value.y * -0.02}px, 0)`,
+    : `translate3d(${offset.value.x * 0.12}px, ${offset.value.y * -0.12}px, 0)`,
 }))
 
 onMounted(() => {
@@ -109,23 +109,21 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-    <!-- Aurora Blob 1: Top-Left -->
+    <!-- Oversized radial fields share one continuous falloff behind all surfaces. -->
     <div
-      class="aurora-blob aurora-blob-1 absolute -top-[30%] -left-[10%] w-[70vw] h-[70vw] rounded-full blur-[120px] transition-colors duration-1000"
-      :class="isDark ? 'mix-blend-screen opacity-35' : 'mix-blend-multiply opacity-25'"
+      class="aurora-blob aurora-blob-1 absolute"
+      :class="isDark ? 'mix-blend-screen opacity-[0.32]' : 'mix-blend-multiply opacity-25'"
       :style="layer1Style"
     />
 
-    <!-- Aurora Blob 2: Top-Right -->
     <div
-      class="aurora-blob aurora-blob-2 absolute top-[20%] -right-[20%] w-[60vw] h-[60vw] rounded-full blur-[120px] transition-colors duration-1000"
-      :class="isDark ? 'mix-blend-screen opacity-35' : 'mix-blend-multiply opacity-25'"
+      class="aurora-blob aurora-blob-2 absolute"
+      :class="isDark ? 'mix-blend-screen opacity-[0.28]' : 'mix-blend-multiply opacity-25'"
       :style="layer2Style"
     />
 
-    <!-- Aurora Blob 3: Bottom-Center -->
     <div
-      class="aurora-blob aurora-blob-3 absolute -bottom-[20%] left-[20%] w-[80vw] h-[50vw] rounded-full blur-[120px] transition-colors duration-1000"
+      class="aurora-blob aurora-blob-3 absolute"
       :class="isDark ? 'mix-blend-screen opacity-30' : 'mix-blend-multiply opacity-20'"
       :style="layer3Style"
     />
@@ -133,54 +131,71 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+@property --aurora-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+
+.aurora-blob {
+  inset: -30%;
+  background-image: radial-gradient(
+    ellipse 45% 50% at var(--field-position),
+    var(--aurora-color) 0%,
+    color-mix(in srgb, var(--aurora-color) 65%, transparent) 30%,
+    color-mix(in srgb, var(--aurora-color) 30%, transparent) 60%,
+    transparent 100%
+  );
+  filter: blur(clamp(80px, 10vw, 160px));
+  transition: --aurora-color 600ms ease;
+}
+
 @keyframes aurora-drift-1 {
   0%, 100% {
-    margin-left: 0;
-    margin-top: 0;
+    translate: 0 0;
   }
   50% {
-    margin-left: 4vw;
-    margin-top: 3vh;
+    translate: 17vw 13vh;
   }
 }
 
 @keyframes aurora-drift-2 {
   0%, 100% {
-    margin-right: 0;
-    margin-top: 0;
+    translate: 0 0;
   }
   50% {
-    margin-right: 3vw;
-    margin-top: -3vh;
+    translate: -17vw -11vh;
   }
 }
 
 @keyframes aurora-drift-3 {
   0%, 100% {
-    margin-left: 0;
-    margin-bottom: 0;
+    translate: 0 0;
   }
   50% {
-    margin-left: -4vw;
-    margin-bottom: 4vh;
+    translate: -13vw 13vh;
   }
 }
 
 .aurora-blob-1 {
+  --field-position: 30% 30%;
   animation: aurora-drift-1 18s ease-in-out infinite;
 }
 
 .aurora-blob-2 {
+  --field-position: 80% 60%;
   animation: aurora-drift-2 22s ease-in-out infinite;
 }
 
 .aurora-blob-3 {
+  --field-position: 55% 75%;
   animation: aurora-drift-3 20s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .aurora-blob {
     animation: none !important;
+    transition: none !important;
   }
 }
 </style>

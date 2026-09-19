@@ -24,9 +24,9 @@ const linkTarget = computed(() => {
 })
 const linkRel = computed(() => linkTarget.value ? 'noopener noreferrer' : undefined)
 const actionStyle = computed(() => ({
-  backgroundColor: props.tokens.actionBg,
-  borderColor: props.tokens.actionBorder,
-  color: props.tokens.actionFg,
+  '--action-bg': props.tokens.actionBg,
+  '--action-fg': props.tokens.actionFg,
+  '--action-hover-bg': props.tokens.actionHoverBg,
 }))
 
 async function handleCopy(): Promise<void> {
@@ -51,7 +51,7 @@ function selectFallback(event: Event): void {
     :href="action.href"
     :target="linkTarget"
     :rel="linkRel"
-    class="inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-4 text-center text-sm font-medium transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+    class="hub-action flex w-full h-11 items-center justify-center gap-2 rounded-xl border px-4 text-center text-sm font-medium focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     :style="actionStyle"
   >
     <component :is="iconRegistry[action.icon]" v-if="action.icon && iconRegistry[action.icon]" :size="16" aria-hidden="true" />
@@ -61,7 +61,7 @@ function selectFallback(event: Event): void {
   <button
     v-else
     type="button"
-    class="inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-4 text-center text-sm font-medium transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+    class="hub-action flex w-full h-11 items-center justify-center gap-2 rounded-xl border px-4 text-center text-sm font-medium focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     :style="actionStyle"
     @click="handleCopy"
   >
@@ -100,3 +100,23 @@ function selectFallback(event: Event): void {
     </div>
   </Teleport>
 </template>
+
+<style scoped>
+.hub-action {
+  background-color: var(--action-bg);
+  border-color: transparent;
+  color: var(--action-fg);
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.hub-action:hover {
+  background-color: var(--action-hover-bg);
+  border-color: var(--action-fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-action {
+    transition: none;
+  }
+}
+</style>
