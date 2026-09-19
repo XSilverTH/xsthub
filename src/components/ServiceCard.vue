@@ -28,9 +28,8 @@ const blockColumns = computed<Block[][]>(() => {
   return [blocks.value.slice(0, midpoint), blocks.value.slice(midpoint)]
 })
 const cardStyle = computed(() => ({
-  '--card-border': tokens.value.cardBorder,
-  '--card-hover-border': tokens.value.cardHoverBorder,
   '--card-delay': `${(props.index ?? 0) * 80}ms`,
+  '--card-accent': tokens.value.accent,
 }))
 const iconStyle = computed(() => ({
   backgroundColor: tokens.value.iconBg,
@@ -43,17 +42,19 @@ const accentStyle = computed(() => ({ color: tokens.value.textFg }))
 
 <template>
   <article
-    class="hub-card relative col-span-1 flex flex-col justify-between rounded-3xl p-7 md:p-8 transition-all duration-300 hover:-translate-y-1"
-    :class="[
-      card.layout === 'wide' ? 'col-span-1 md:col-span-2 lg:col-span-2' : '',
-      isDark
-        ? 'bg-[#030712]/75 border border-white/[0.08] hover:border-white/[0.2] shadow-2xl shadow-black/50'
-        : 'bg-white/70 border border-black/[0.08] hover:border-black/[0.18] shadow-xl shadow-slate-200/50'
-    ]"
+    class="hub-card glass group relative col-span-1 flex flex-col justify-between rounded-3xl p-7 md:p-8 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
+    :class="card.layout === 'wide' ? 'col-span-1 md:col-span-2 lg:col-span-2' : ''"
     :style="cardStyle"
     :data-card-id="card.id"
   >
-    <div class="flex flex-1 flex-col justify-between">
+    <!-- Ambient corner glow inside card -->
+    <div
+      class="pointer-events-none absolute -top-12 -right-12 h-56 w-56 rounded-full blur-[70px] opacity-15 transition-opacity duration-500 group-hover:opacity-30"
+      :style="{ backgroundColor: tokens.accent }"
+      aria-hidden="true"
+    />
+
+    <div class="relative z-10 flex flex-1 flex-col justify-between">
       <div>
         <div class="flex items-start gap-4">
           <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl" :style="iconStyle">
@@ -91,7 +92,11 @@ const accentStyle = computed(() => ({ color: tokens.value.textFg }))
 .hub-card {
   animation: hub-card-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: var(--card-delay);
-  transition: border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+  transition: border-color 400ms ease, transform 300ms ease, box-shadow 400ms ease;
+}
+
+.hub-card:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 45%, transparent);
 }
 
 @keyframes hub-card-in {
