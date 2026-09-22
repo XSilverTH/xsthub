@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+  <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" style="contain: strict;" aria-hidden="true">
     <!-- Oversized radial fields share one continuous falloff behind all surfaces. -->
     <div
       class="aurora-blob aurora-blob-1 absolute"
@@ -140,14 +140,27 @@ onBeforeUnmount(() => {
 .aurora-blob {
   inset: -30%;
   background-image: radial-gradient(
-    ellipse 45% 50% at var(--field-position),
+    ellipse 50% 50% at var(--field-position),
     var(--aurora-color) 0%,
-    color-mix(in srgb, var(--aurora-color) 65%, transparent) 30%,
-    color-mix(in srgb, var(--aurora-color) 30%, transparent) 60%,
+    color-mix(in srgb, var(--aurora-color) 82%, transparent) 15%,
+    color-mix(in srgb, var(--aurora-color) 58%, transparent) 30%,
+    color-mix(in srgb, var(--aurora-color) 36%, transparent) 45%,
+    color-mix(in srgb, var(--aurora-color) 19%, transparent) 60%,
+    color-mix(in srgb, var(--aurora-color) 8%, transparent) 75%,
+    color-mix(in srgb, var(--aurora-color) 2%, transparent) 88%,
     transparent 100%
   );
-  filter: blur(clamp(80px, 10vw, 160px));
+  filter: none;
+  will-change: transform, translate;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   transition: --aurora-color 600ms ease;
+}
+
+@media (min-width: 769px) {
+  .aurora-blob {
+    filter: blur(clamp(20px, 3vw, 40px));
+  }
 }
 
 @keyframes aurora-drift-1 {

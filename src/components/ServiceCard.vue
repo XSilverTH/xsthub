@@ -85,13 +85,20 @@ const accentStyle = computed(() => ({ color: tokens.value.textFg }))
 .hub-card {
   animation: hub-card-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
   animation-delay: var(--card-delay);
-  transition: border-color 400ms ease, transform 300ms ease, backdrop-filter 500ms ease, -webkit-backdrop-filter 500ms ease, background-color 600ms ease;
+  transition: border-color 400ms ease, transform 300ms ease, background-color 600ms ease;
+  contain: paint;
 }
 
-.hub-card:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
-  backdrop-filter: blur(16px) saturate(1.45) brightness(1.12);
-  -webkit-backdrop-filter: blur(16px) saturate(1.45) brightness(1.12);
+@media (hover: hover) and (pointer: fine) {
+  .hub-card {
+    transition: border-color 400ms ease, transform 300ms ease, backdrop-filter 500ms ease, -webkit-backdrop-filter 500ms ease, background-color 600ms ease;
+  }
+
+  .hub-card:hover {
+    border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
+    backdrop-filter: blur(16px) saturate(1.45) brightness(1.12);
+    -webkit-backdrop-filter: blur(16px) saturate(1.45) brightness(1.12);
+  }
 }
 
 @keyframes hub-card-in {
