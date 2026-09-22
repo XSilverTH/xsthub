@@ -47,6 +47,11 @@ const accentStyle = computed(() => ({ color: tokens.value.textFg }))
     :style="cardStyle"
     :data-card-id="card.id"
   >
+    <AvailabilityBadge
+      v-if="card.availability"
+      :availability="card.availability"
+      class="absolute right-5 top-5 z-20"
+    />
     <div class="relative z-10 flex flex-1 flex-col justify-between">
       <div>
         <div class="flex flex-col items-start gap-4">
@@ -54,9 +59,8 @@ const accentStyle = computed(() => ({ color: tokens.value.textFg }))
             <component :is="icon" :size="22" stroke-width="1.8" aria-hidden="true" />
           </div>
           <div class="min-w-0 flex-1">
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 pr-5">
               <h2 :class="card.layout === 'wide' ? 'text-2xl font-semibold' : 'text-xl font-medium'" class="tracking-tight text-slate-900 dark:text-slate-50">{{ card.title }}</h2>
-              <AvailabilityBadge v-if="card.availability" :availability="card.availability" />
             </div>
             <p v-if="card.subtitle" class="mt-1 break-all font-mono text-xs" :style="accentStyle">{{ card.subtitle }}</p>
           </div>
