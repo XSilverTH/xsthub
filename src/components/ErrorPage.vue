@@ -32,8 +32,7 @@ function retry(): void {
     :style="{ backgroundColor: palette.canvas[isDark ? 'dark' : 'light'] }"
   >
     <AuroraBackground :palette="palette" :is-dark="isDark" />
-    <div class="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
-      <a href="/" class="font-sans text-xl font-bold leading-none tracking-[-0.06em] text-slate-950 md:text-2xl dark:text-white">XSilverTH<span class="ml-0.5" :style="{ color: headerDot }" aria-hidden="true">.</span></a>
+    <div class="absolute right-6 top-6 z-20 md:right-12 md:top-12">
       <ThemeControl />
     </div>
     <main class="relative z-10 mx-auto flex min-h-screen w-full max-w-[1280px] flex-col items-center justify-center px-6 py-12 text-center">
@@ -79,6 +78,9 @@ function retry(): void {
         {{ phrase }}
       </p>
     </main>
+    <footer class="absolute inset-x-0 bottom-0 z-20 flex justify-center px-6 pb-6 md:pb-8">
+      <a href="/" class="font-sans text-sm font-bold leading-none tracking-[-0.06em] text-slate-500 dark:text-slate-400">XSilverTH<span class="ml-px" :style="{ color: headerDot }" aria-hidden="true">.</span></a>
+    </footer>
   </div>
 </template>
 
