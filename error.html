@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-error-code="{{CODE}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#020617" />
+    <meta name="description" content="{{PHRASE}} · XSTHub" />
+    <title>{{TITLE}} · XSTHub</title>
+    <script>
+      (() => {
+        let stored = null
+        try {
+          stored = localStorage.getItem('xsthub-theme')
+        } catch {
+          // Storage may be unavailable in a restricted browsing context.
+        }
+        const dark = stored === 'dark' ||
+          (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.classList.toggle('dark', dark)
+      })()
+    </script>
+    <style data-error>
+      /* Inlined at build time: compiled app CSS + fallback surface paint.
+         The fallback uses the active palette's canvas tokens so the page
+         never flashes white, even before the inlined stylesheet parses. */
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/errors/main.ts"></script>
+  </body>
+</html>

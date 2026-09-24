@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -b && vite build && bun scripts/build-errors.ts",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "validate:content": "bun scripts/validate-content.ts",
@@ -32,6 +32,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.7.2",
     "vite": "^6.0.7",
+    "vite-plugin-singlefile": "^2.3.3",
     "vue-tsc": "^2.2.0",
     "zod-to-json-schema": "^3.24.6"
   }
